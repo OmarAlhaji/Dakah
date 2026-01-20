@@ -1,0 +1,1645 @@
+:root {
+    --primary-color: #6C63FF;
+    --secondary-color: #2A2A72;
+    --accent-color: #009FFD;
+    --success-color: #00E676;
+    --danger-color: #FF1744;
+    --bg-color: #0F0F1E;
+    --text-color: #FFFFFF;
+    --card-bg: #1F1F35;
+    --font-main: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 100vh;
+    /* Changed from height to min-height */
+    width: 100%;
+    /* Removed flex centering that causes clipping on mobile */
+    background: radial-gradient(circle at top right, #2A2A72, #0F0F1E);
+}
+
+.app-container {
+    width: 100%;
+    max-width: none;
+    /* Full Width for Desktop */
+    min-height: 100vh;
+    padding: 20px;
+    padding-top: 100px;
+    /* Space for fixed Header */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Screens State --- */
+.screen {
+    display: none;
+    flex-direction: column;
+    min-height: 100%;
+    /* Changed to min-height */
+    animation: fadeIn 0.5s ease-out;
+    padding-bottom: 50px;
+    /* Ensure space at bottom */
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* --- Background Animation (Premium Movements) --- */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1e 100%);
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: floatShape 20s infinite alternate ease-in-out;
+}
+
+.shape-1 {
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(45deg, var(--primary-color), #8e44ad);
+    top: -10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, var(--secondary-color), #2980b9);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+    animation-duration: 25s;
+}
+
+.shape-3 {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(45deg, var(--accent-color), #16a085);
+    top: 40%;
+    left: 40%;
+    animation-duration: 15s;
+    animation-direction: alternate-reverse;
+}
+
+.shape-4 {
+    /* New Shape */
+    width: 200px;
+    height: 200px;
+    background: var(--danger-color);
+    bottom: 20%;
+    left: 10%;
+    animation-duration: 18s;
+    opacity: 0.2;
+}
+
+@keyframes floatShape {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translate(50px, 30px) rotate(10deg) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-30px, -50px) rotate(-10deg) scale(0.9);
+    }
+}
+
+/* --- Login Screen (Centered & Premium) --- */
+#screen-login {
+    display: none;
+    /* Default hidden */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    /* Fix to cover screen */
+    top: 0;
+    left: 0;
+    z-index: 20000;
+    /* Above everything */
+    background: transparent;
+    /* Let bg-animation show */
+}
+
+#screen-login.active {
+    display: flex;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    padding: 60px 50px;
+    border-radius: 40px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    width: 100%;
+    max-width: 480px;
+    animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect on card */
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: shine 6s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    20% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+.login-logo {
+    image-resolution: 100px;
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+    animation: float 4s ease-in-out infinite;
+}
+
+.login-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.login-card p {
+    color: #aaa;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+.login-card .input-group {
+    margin-bottom: 30px;
+}
+
+.login-card input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.login-card input:focus {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+}
+
+/* --- Components --- */
+button {
+    cursor: pointer;
+    font-family: var(--font-main);
+    border: none;
+    outline: none;
+    transition: transform 0.1s, filter 0.2s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    display: block;
+    margin: 0 auto;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: #000;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    flex: 1;
+    margin: 5px;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    flex: 1;
+    margin: 5px;
+}
+
+/* --- Setup Screen --- */
+.logo-area {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.logo-area h1 {
+    font-size: 3rem;
+    margin: 0;
+    background: -webkit-linear-gradient(var(--success-color), var(--accent-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.setup-form {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background: #111;
+    color: white;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+/* --- Home Screen --- */
+
+/* Premium App Bar */
+.app-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    box-sizing: border-box;
+    position: relative;
+    z-index: 100;
+}
+
+.app-bar .logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+    font-family: 'Lalezar', var(--font-main);
+    /* Prefer Lalezar if available */
+}
+
+.app-bar .nav-icons {
+    display: flex;
+    gap: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Marquee Ticker */
+.marquee-container {
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+    overflow: hidden;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.marquee-text {
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1rem;
+    text-shadow: 0 0 5px rgba(0, 159, 253, 0.3);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.hero-section {
+    text-align: center;
+    margin-top: 10px;
+    /* Reduced margin */
+    margin-bottom: 10px;
+}
+
+.hero-section h1 {
+    font-size: 4.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: #ccc;
+}
+
+.animate-float {
+    position: relative;
+    display: inline-block;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.tutorial-section {
+    margin-top: 20px;
+}
+
+.tutorial-section h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.tutorial-cards {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.t-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.t-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.t-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.t-card h3 {
+    font-size: 1.2rem;
+    margin: 5px 0;
+    color: var(--primary-color);
+}
+
+.t-card p {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin: 0;
+}
+
+/* --- Setup Screen --- */
+/* (Reusing existing styles, just tweaking header) */
+
+/* --- Game Screen --- */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 250px;
+    background: var(--card-bg);
+    padding: 15px 100px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.team-score {
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.team-score.active,
+.team-score.active .team-name,
+.team-score.active .score-value {
+    transform: scale(1.2) !important;
+    color: var(--success-color) !important;
+    text-shadow: 0 0 15px rgba(0, 230, 118, 0.6);
+    font-weight: 900;
+}
+
+.score-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.round-indicator {
+    font-size: 1.5rem;
+    color: #888;
+    text-align: center;
+}
+
+.game-board {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.view-section {
+    display: none;
+    width: 100%;
+    text-align: center;
+    animation: zoomIn 0.3s ease-out;
+}
+
+.view-section.active {
+    display: block;
+}
+
+/* Categories Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 10px;
+}
+
+.cat-btn {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 0px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cat-btn:active {
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.3);
+    transform: translateY(3px);
+}
+
+.cat-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05));
+}
+
+/* Question Card (Flip) */
+.question-card {
+    background-color: transparent;
+    width: 100%;
+    min-height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    background: var(--card-bg);
+    /* Fallback */
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(108, 99, 255, 0.2);
+}
+
+.question-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--card-bg), #2A2A52);
+    border: 2px solid var(--primary-color);
+}
+
+.card-back {
+    background: linear-gradient(135deg, #111, #222);
+    transform: rotateY(180deg);
+    border: 2px solid var(--success-color);
+    color: var(--success-color);
+}
+
+.category-badge {
+    background: var(--accent-color);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+.controls-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.controls-area.hidden {
+    display: none;
+}
+
+/* Event Card */
+.event-card {
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    padding: 40px 20px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 0 50px rgba(255, 107, 107, 0.4);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.event-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+/* --- End Screen --- */
+.winner-animation {
+    text-align: center;
+}
+
+.winner-name {
+    font-size: 3rem;
+    color: var(--success-color);
+    margin: 20px 0;
+    text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+}
+
+.final-scores {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+    }
+
+    70% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Turn Overlay */
+.turn-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    transition: opacity 0.3s;
+}
+
+.turn-overlay.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.turn-content {
+    text-align: center;
+    animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.turn-content h2 {
+    color: #ccc;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.turn-content h1 {
+    font-size: 4rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 30px var(--primary-color);
+    margin: 0;
+}
+
+/* Timer - Premium Design */
+/* --- Category Selection Screen --- */
+.team-selection-area {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.team-select-box {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.team-select-box h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(108, 99, 255, 0.4);
+}
+
+.cat-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+    /* Scrollbar space */
+}
+
+/* Custom Checkbox Button Look */
+.cat-option-label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cat-option-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.cat-option-btn {
+    display: block;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ccc;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.cat-option-label:hover .cat-option-btn {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cat-option-input:checked~.cat-option-btn {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+    font-weight: bold;
+}
+
+/* Scrollbar Style */
+.cat-checkboxes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cat-checkboxes::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.cat-checkboxes::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+
+/* --- Help Methods Buttons --- */
+.help-methods {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-help {
+    min-width: 80px;
+    height: auto;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #fff, #ddd);
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, filter 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #333;
+}
+
+.btn-help:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.3);
+}
+
+.btn-help:active {
+    transform: scale(0.95);
+}
+
+.btn-help:disabled {
+    background: #333;
+    /* Dark gray */
+    color: #555;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+    box-shadow: none;
+    opacity: 0.5;
+    transform: none;
+}
+
+/* Specific colors for helps if needed, or keep generic gold/silver look */
+
+
+.center-counters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Original Timer Styles (Base) */
+.timer-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* border: 4px solid var(--primary-color); Removed in premium but keeping base structure */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: var(--font-number, sans-serif);
+    color: var(--primary-color);
+    transition: all 0.3s;
+    position: relative;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+.timer-circle::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    z-index: -1;
+    border-radius: 50%;
+}
+
+.timer-circle.warning {
+    color: var(--danger-color);
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both infinite;
+}
+
+.timer-circle.warning::before {
+    background: linear-gradient(45deg, var(--danger-color), #ff0000);
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* Card Improvements */
+.question-card {
+    height: 400px;
+    min-height: 400px;
+}
+
+.card-front,
+.card-back {
+    justify-content: flex-start;
+    /* Fix align-items: center causing overlap */
+    flex-direction: column;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    gap: 20px;
+    /* Add spacing between elements */
+}
+
+/* Scrollbar beautification */
+.card-front::-webkit-scrollbar,
+.card-back::-webkit-scrollbar {
+    width: 5px;
+}
+
+.card-front::-webkit-scrollbar-thumb,
+.card-back::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.card-front h3,
+.card-back h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    z-index: 2;
+}
+
+.card-back p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 10px;
+    word-wrap: break-word;
+    /* Ensure text wraps */
+}
+
+/* Fix "Answer" label overlap */
+.card-back h3 {
+    color: #ccc;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.card-front::after {
+    font-size: 15rem;
+    opacity: 0.03;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- Header (Site Header) --- */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* full viewport width */
+    height: 70px;
+    /* fixed height */
+    background: rgba(15, 15, 30, 0.98);
+    /* Almost opaque */
+    backdrop-filter: blur(15px);
+    border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+    z-index: 9999;
+    /* Highest priority */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    /* Center inner content */
+    transition: transform 0.3s ease-in-out;
+}
+
+.site-header.hidden {
+    transform: translateY(-100%);
+}
+
+.header-content {
+    width: 100%;
+    max-width: 1200px;
+    /* Container for content */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.site-header .logo {
+    font-size: 1.8rem;
+    font-family: 'Lalezar', sans-serif;
+    color: var(--primary-color);
+    text-shadow: 0 0 15px rgba(108, 99, 255, 0.6);
+    white-space: nowrap;
+}
+
+.main-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.main-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: #eee;
+    font-weight: bold;
+    font-size: 1.1rem;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.main-menu a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+}
+
+.main-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s;
+}
+
+.main-menu a:hover::after {
+    width: 100%;
+}
+
+.user-actions {
+    min-width: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-small {
+    background: rgba(255, 23, 68, 0.1);
+    border: 1px solid var(--danger-color);
+    color: var(--danger-color);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-small:hover {
+    background: var(--danger-color);
+    color: white;
+    box-shadow: 0 0 15px var(--danger-color);
+}
+
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 50vh;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.screen-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 50vh;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.lb-item {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.lb-item.header {
+    background: var(--primary-color);
+    color: white;
+}
+
+.lb-item span:nth-child(1) {
+    width: 30px;
+}
+
+.lb-item span:nth-child(2) {
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/* Settings */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* Switch Toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--success-color);
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.home-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 15px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(108, 99, 255, 0.1);
+}
+
+/* Flexible Scoring Buttons */
+.who-answered-btns {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.who-answered-btns button {
+    flex: 1;
+    min-width: 80px;
+    padding: 10px 10px;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+/* Centering About and Goal Screens Only */
+#screen-about,
+#screen-goal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 15, 30, 0.95);
+    overflow-y: auto;
+}
+
+#screen-about.active,
+#screen-goal.active {
+    display: flex;
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popIn 0.5s ease;
+    margin: auto;
+}
+
+/* Ensure navbar stays visible on top */
+.site-header {
+    z-index: 2000;
+}
+
+/* Footer Styles (Relative Bottom) */
+.site-footer {
+    width: 100%;
+    position: relative;
+    margin-top: auto;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 100;
+}
+
+.footer-content {
+    width: 100%;
+    /* Ensure content spans width */
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    /* Minimize gap to save space */
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    /* Explicit center */
+}
+
+.footer-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Footer credit styling (designer badge) */
+.footer-credit {
+    display: inline-block;
+    position: relative;
+    margin-left: 8px;
+    color: var(--primary-color);
+    background: linear-gradient(90deg, rgba(108,99,255,0.10), rgba(0,159,253,0.06));
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(108,99,255,0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+}
+
+.footer-credit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(108,99,255,0.12);
+}
+
+/* Popup with image shown on hover */
+.credit-popup {
+    position: absolute;
+    bottom: 140%;
+    right: 0;
+    width: 140px;
+    background: rgba(0,0,0,0.8);
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px) scale(0.98);
+    transition: opacity 150ms ease, transform 150ms ease;
+    z-index: 1200;
+}
+
+.credit-popup img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.footer-credit:hover .credit-popup {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+/* --- Improved Timer Styles --- */
+.team-timer {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffd700;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    /* Perfect Circle */
+    border: 4px solid rgba(255, 215, 0, 0.5);
+    display: flex;
+    /* Centering */
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    /* Centered in container */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    line-height: normal;
+    /* Fix alignment */
+    padding: 0;
+    /* Remove padding to ensure circle shape */
+}
+
+.team-timer.warning {
+    color: #fff;
+    background: #FF1744;
+    /* Bright Red */
+    border-color: #fff;
+    animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both infinite;
+    box-shadow: 0 0 20px rgba(255, 23, 68, 0.8);
+}
+
+.team-timer.hidden {
+    display: none !important;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* --- RESPONSIVENESS (Mobile & Tablet) --- */
+@media screen and (max-width: 768px) {
+
+    /* General Adjustments */
+    .app-container {
+        padding-top: 80px;
+        /* Smaller header space */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Header */
+    .site-header {
+        height: 60px;
+    }
+
+    .site-header .logo {
+        font-size: 1.4rem;
+    }
+
+    .main-menu {
+        display: none;
+        /* Hide Menu on Mobile (Simpler for now) */
+    }
+
+    /* Hero Section */
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Tutorial Cards */
+    .tutorial-cards {
+        flex-direction: column;
+    }
+
+    /* Game Header (Scoreboard) */
+    .game-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .team-score {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .team-score .team-name {
+        order: 1;
+        font-size: 1.1rem;
+    }
+
+    .team-score .score-value {
+        order: 2;
+        font-size: 1.3rem;
+    }
+
+    .help-methods {
+        order: 3;
+        flex-wrap: wrap;
+        /* Allow wrapping on small screens */
+        justify-content: center;
+    }
+
+    .btn-help {
+        font-size: 0.8rem;
+        /* Smaller text on mobile */
+        padding: 6px 10px;
+        min-width: auto;
+    }
+
+    .center-counters {
+        flex-direction: row;
+        gap: 20px;
+        margin: 5px 0;
+    }
+
+    /* Timer on Mobile - Position Absolute or Fixed? Or just smaller */
+    .team-timer {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8rem;
+        border-width: 3px;
+        position: absolute;
+        /* Float it or keep in flow? */
+        /* Let's keep it in flow but adjusted */
+        position: relative;
+        margin: 0;
+    }
+
+    .team-score {
+        position: relative;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* Category Selection */
+    .team-selection-area {
+        flex-direction: column;
+    }
+
+    .team-select-box {
+        max-width: 100%;
+    }
+
+    /* Question Card */
+    .question-card {
+        height: 350px;
+        /* Smaller height */
+        min-height: 300px;
+    }
+
+    .card-front h3,
+    .card-back h3 {
+        font-size: 1.4rem;
+    }
+
+    .card-back p {
+        font-size: 1.1rem;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+}

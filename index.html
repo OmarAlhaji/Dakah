@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دكة 🛋️</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Text-based Premium Header -->
+    <header class="site-header hidden" id="main-nav">
+        <div class="header-content">
+            <div class="logo"><img src="assets/dakah_logo.png" style="width: 70px" alt=""></div>
+            <nav class="main-menu">
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="game.goHome()">الرئيسية</a></li>
+                    <!-- <li><a href="javascript:void(0)" onclick="game.switchScreen('about')">من نحن</a></li> -->
+                    <!-- <li><a href="javascript:void(0)" onclick="game.switchScreen('goal')">الهدف</a></li> -->
+                    <li><a href="javascript:void(0)" onclick="game.showLeaderboard()">المتصدرين</a></li>
+                    <li><a href="javascript:void(0)" onclick="game.switchScreen('settings')">الإعدادات</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button class="btn-small" onclick="game.logout()">خروج 🚪</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+
+        <!-- Turn Overlay Notification -->
+        <div id="turn-overlay" class="turn-overlay hidden">
+            <div class="turn-content">
+                <h2>دور فريق</h2>
+                <h1 id="overlay-team-name">الفريق</h1>
+            </div>
+        </div>
+
+        <!-- Screen -1: Login -->
+        <section id="screen-login" class="screen active">
+            <div class="login-card">
+                <div class="login-logo"><img src="assets/dakah_logo.png" style="width: 150px" alt="logo"></div>
+                <h1>حياك الله</h1>
+                <p>دخل اسمك عشان نحفظ إنجازاتك يا وحش</p>
+                <div class="input-group">
+                    <input type="text" id="username-input" placeholder="اسمك الكريم طال عمرك...">
+                </div>
+                <button class="btn-primary" onclick="game.login()">دخول</button>
+            </div>
+        </section>
+
+        <!-- Screen: About Us -->
+        <section id="screen-about" class="screen">
+            <div class="content-box">
+                <h2>من نحن؟ 🌟</h2>
+                <p>نحن شباب طموحين، جمعنا شغفنا بالتقنية وحبنا للجمعات والوناسة.</p>
+                <p>لاحظنا دايماً إن جمعاتنا ينقصها شي يحرك الجو، شي يخلي الكل يشارك ويتحمس.
+                </p>
+                <p>من هنا جاءت فكرة "دكة"، منصة رقمية بقلب عربي، هدفها الأول صنع ذكريات لا تنسى، وضحكات من القلب،
+                    وتحديات تظهر ثقافتك ومدى معرفتك.</p>
+                <button class="btn-secondary" onclick="game.goHome()">العودة للرئيسية</button>
+            </div>
+        </section>
+
+        <!-- Screen: Site Goal -->
+        <section id="screen-goal" class="screen">
+            <div class="content-box">
+                <h2>الهدف من الموقع 🎯</h2>
+                <p>في عصر السرعة والشاشات المنعزلة، هدفنا بسيط وعميق: نبي نرجع "اللمة" الحقيقية.</p>
+                <p>نطمح لأن تكون هذه المنصة هي الرفيق الأول في كل استراحة، مجلس، أو حتى سهرات **الديسكورد**
+                    🎧. ما نبي نكون مجرد لعبة
+                    عابرة، نبي نكون السبب في إنك تكتشف ثقافة ومعلومات خويك، وسرعة بديهة أخوك.</p>
+                <p>هدفنا نقدم ترفيه نظيف، ممتع، ومفيد، يجمع بين التراث والثقافة العامة، ويعزز الروابط الاجتماعية بطريقة
+                    عصرية ومبتكرة.</p>
+                <p>باختصار.. نبيك تترك جوالك، وتعيش اللحظة مع اللي تحبهم!</p>
+                <button class="btn-secondary" onclick="game.goHome()">العودة للرئيسية</button>
+            </div>
+        </section>
+
+        <!-- Screen: Leaderboard -->
+        <section id="screen-leaderboard" class="screen">
+            <div class="screen-header">
+                <h2>🏆 لوحة الشرف 🏆</h2>
+            </div>
+            <div class="leaderboard-list" id="leaderboard-list">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- Screen: Settings -->
+        <section id="screen-settings" class="screen">
+            <div class="screen-header">
+                <h2>⚙️ الإعدادات</h2>
+            </div>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <span>🔊 المؤثرات الصوتية</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-sfx" checked onchange="game.toggleSfx()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <span>💾 حفظ النتائج (ملف)</span>
+                    <button class="btn-small" onclick="game.exportData()">تنزيل 📥</button>
+                </div>
+
+                <div class="setting-item">
+                    <span>📂 استرجاع النتائج</span>
+                    <button class="btn-small" onclick="document.getElementById('import-file').click()">رفع 📤</button>
+                    <input type="file" id="import-file" style="display: none;" onchange="game.importData(this)">
+                </div>
+                <div class="setting-item">
+                    <button class="btn-danger" onclick="game.clearData()">حذف كل البيانات 🗑️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 0: Home / Landing -->
+        <section id="screen-home" class="screen">
+
+            <!-- Marquee (Hype Text) -->
+            <div class="marquee-container">
+                <div class="marquee-text">
+                    🔥 أقوى التحديات! .. مين الشقردي اللي بيفوز؟ .. جهز قهوتك وتعال ☕ 
+                    .. معلومات، ضحك، ووناسة .. لا يفوتك الفعاليات .. خلك ذيب .. الفوز للأذكياء
+                    فقط .. أحكام وقوانين صارمة.. دبل نقاطك ولاتخلي الفوز! 🚀
+                </div>
+            </div>
+
+            <div class="hero-section">
+                <h1 id="welcome-msg" class="animate-float">هلا والله!</h1>
+                <!-- <h2 id="welcome-msg" class="welcome-msg">هلا والله!</h2> -->
+                <p class="hero-subtitle">لعبة الجمعات والوناسة .. جهز ربعك!</p>
+                <div class="home-actions">
+                    <button class="btn-primary" onclick="game.switchScreen('setup')">ابدأ تحدي جديد ⚔️</button>
+                    <!-- <button class="btn-secondary" onclick="game.showLeaderboard()">لوحة الشرف 🏆</button> -->
+                </div>
+            </div>
+
+            <div class="tutorial-section">
+                <h2>كيف نلعب؟</h2>
+                <div class="tutorial-cards">
+                    <div class="t-card">
+                        <div class="icon">
+                            <!-- Discord Icon SVG -->
+                            <svg width="40" height="40" viewBox="0 0 127.14 96.36" fill="#5865F2"
+                                style="margin-bottom: -5px;">
+                                <path
+                                    d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.2,105.2,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.11,77.11,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.89,105.89,0,0,0,126.6,80.22c2.36-24.44-2.54-48.4-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
+                            </svg>
+                        </div>
+                        <h3 style="color: #5865F2;">العب ديسكورد</h3>
+                        <p>شارك الشاشة والعب مع اخوياك.</p>
+                    </div>
+                    <div class="t-card">
+                        <div class="icon">👥</div>
+                        <h3>كون فريقك</h3>
+                        <p>اختاروا اسم يناسب فريقكم.</p>
+                    </div>
+                    <div class="t-card">
+                        <div class="icon">💰</div>
+                        <h3>أختار الأقسام</h3>
+                        <p>اختاروا الأقسام اللي تناسبكم.</p>
+                    </div>
+                    <div class="t-card">
+                        <div class="icon">🧠</div>
+                        <h3>جاوب صح</h3>
+                        <p>أسئلة منوعة.. ثقافية، دينية، وفلة.</p>
+                    </div>
+                    <div class="t-card">
+                        <div class="icon">🏆</div>
+                        <h3>افوز بالتحدي</h3>
+                        <p>جمع نقاط أكثر ولا تخلي الفوز.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 1: Welcome & Setup -->
+        <section id="screen-setup" class="screen">
+            <div class="logo-area">
+                <h1><img src="assets/dakah_logo.png" style="width: 150px;" alt="logo"></h1>
+                <p>دخل اسماء الأفرقة وأدخلوا فوراً بالتحديات</p>
+            </div>
+
+            <div class="setup-form">
+                <div class="input-group">
+                    <label>الفريق الأول</label>
+                    <input type="text" id="team1-input" placeholder="الأول الفريق..." value="">
+                </div>
+                <div class="input-group">
+                    <label>الفريق الثاني</label>
+                    <input type="text" id="team2-input" placeholder="الثاني الفريق..." value="">
+                </div>
+
+                <div class="settings-group">
+                    <label>عدد الجولات: <span id="rounds-value">10</span></label>
+                    <input type="range" id="rounds-input" min="5" max="30" value="10" step="5">
+                </div>
+                <div class="input-group">
+                    <button class="btn-primary" onclick="game.start()">ابدأ اللعبة 🚀</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 1.5: Category Selection -->
+        <section id="screen-category-select" class="screen">
+            <div class="screen-header">
+                <h2>اختاروا مجالاتكم 📚</h2>
+                <p>كل فريق يختار الأقسام اللي يبيها (على الأقل 2)</p>
+            </div>
+
+            <div class="team-selection-area">
+                <div class="team-select-box" id="team1-cat-box">
+                    <h3 id="cat-team1-name">الفريق الأول</h3>
+                    <div class="cat-checkboxes" id="cat-options-team1">
+                        <!-- Injected JS -->
+                    </div>
+                </div>
+
+                <div class="team-select-box" id="team2-cat-box">
+                    <h3 id="cat-team2-name">الفريق الثاني</h3>
+                    <div class="cat-checkboxes" id="cat-options-team2">
+                        <!-- Injected JS -->
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 20px; max-width: 300px;"
+                onclick="game.submitCategories()">اعتمد الاختيارات ✅</button>
+        </section>
+
+        <!-- Screen 2: Gameplay -->
+        <section id="screen-game" class="screen">
+            <!-- Header: Scores -->
+            <!-- Header: Scores -->
+            <header class="game-header">
+                <div class="team-score" id="score-box-1">
+                    <div class="team-name" id="name-display-1">الفريق 1</div>
+                    <div class="score-value" id="score-display-1">0</div>
+                    <div class="team-timer hidden" id="timer-team-1">30</div>
+                    <div class="help-methods" id="help-methods-1">
+                        <!-- <button class="btn-help" onclick="game.useHelp(0, 'steal')" title="سرقة">
+                            <span>🦹</span> <span>سرقة</span>
+                        </button> -->
+                        <button class="btn-help" onclick="game.useHelp(0, 'double')" title="دبل">
+                            <span>🚀</span> <span>دبل</span>
+                        </button>
+                        <button class="btn-help" onclick="game.useHelp(0, 'gift')" title="هدية">
+                            <span>🎁</span> <span>هدية</span>
+                        </button>
+                        <button class="btn-help" onclick="game.useHelp(0, 'change')" title="تغيير">
+                            <span>🔄</span> <span>تغيير</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="center-counters">
+                    <div class="round-indicator">
+                        <span>جولة</span>
+                        <span id="current-round">1</span>
+                        <span>/</span>
+                        <span id="total-rounds">10</span>
+                    </div>
+                </div>
+
+                <div class="team-score" id="score-box-2">
+                    <div class="team-name" id="name-display-2">الفريق 2</div>
+                    <div class="score-value" id="score-display-2">0</div>
+                    <div class="team-timer hidden" id="timer-team-2">30</div>
+                    <div class="help-methods" id="help-methods-2">
+                        <!-- <button class="btn-help" onclick="game.useHelp(1, 'steal')" title="سرقة">
+                            <span>🦹</span> <span>سرقة</span>
+                        </button> -->
+                        <button class="btn-help" onclick="game.useHelp(1, 'double')" title="دبل">
+                            <span>🚀</span> <span>دبل</span>
+                        </button>
+                        <button class="btn-help" onclick="game.useHelp(1, 'gift')" title="هدية">
+                            <span>🎁</span> <span>هدية</span>
+                        </button>
+                        <button class="btn-help" onclick="game.useHelp(1, 'change')" title="تغيير">
+                            <span>🔄</span> <span>تغيير</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="game-board">
+
+                <!-- State: Category Selection -->
+                <div id="view-categories" class="view-section active">
+                    <h2 class="turn-announcement">دور فريق: <span id="current-team-turn">...</span></h2>
+                    <div class="categories-grid" id="categories-container">
+                        <!-- Categories injected by JS -->
+                    </div>
+                </div>
+
+                <!-- State: Surprise Event -->
+                <div id="view-event" class="view-section">
+                    <div class="event-card">
+                        <div class="event-icon">⚡</div>
+                        <h2 id="event-title">مفاجأة!</h2>
+                        <p id="event-desc">وصف المفاجأة هنا...</p>
+                        <button class="btn-primary" onclick="game.resolveEvent()">تابع</button>
+                    </div>
+                </div>
+
+                <!-- State: Question -->
+                <div id="view-question" class="view-section">
+                    <!-- Timer Removed from here -->
+
+
+                    <div class="question-card" id="question-card" onclick="game.flipCard()">
+                        <div class="card-inner" id="q-card-inner">
+                            <div class="card-front">
+                                <span class="category-badge" id="q-category">فئة</span>
+                                <h3 id="q-text">نص السؤال يظهر هنا؟</h3>
+                                <p class="hint">اضغط لإظهار الإجابة</p>
+                            </div>
+                            <div class="card-back">
+                                <h3>الإجابة:</h3>
+                                <p id="a-text">الإجابة الصحيحة</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="controls-area hidden" id="answer-controls">
+                        <h3 style="color: white; margin-bottom: 10px;">مين اللي جاوب؟ 🤔</h3>
+                        <div class="who-answered-btns">
+                            <button class="btn-primary" id="btn-win-team1" onclick="game.handleWin(0)">الفريق 1</button>
+                            <button class="btn-danger" onclick="game.handleWin(-1)">ما أحد 🌚</button>
+                            <button class="btn-primary" id="btn-win-team2" onclick="game.handleWin(1)">الفريق 2</button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </section>
+
+        <!-- Screen 3: Game Over -->
+        <section id="screen-end" class="screen">
+            <div class="winner-animation">
+                <h1>🎉 مبروك للفائز! 🎉</h1>
+                <h2 id="winner-name" class="winner-name">الفريق الفائز</h2>
+                <div class="final-scores">
+                    <div class="final-score">
+                        <span id="end-team1">1</span>: <span id="end-score1">100</span>
+                    </div>
+                    <div class="final-score">
+                        <span id="end-team2">2</span>: <span id="end-score2">90</span>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="location.reload()">لعب مرة أخرى 🔄</button>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <p>جميع الحقوق محفوظة &copy; 2025 دكة</p>
+                <div class="footer-links">
+                    <a class="footer-credit" href="https://discord.gg/2PKVz597H9" target="_blank">حياك دسكورد</a>
+                    <!-- <a href="#" onclick="return false;">سياسة الخصوصية</a> -->
+                    <span class="footer-credit">برمجة وتطوير عًمر
+                        <span class="credit-popup">
+                            <img src="assets/Mr-Omar.png" alt="عمر" />
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Audio Effects -->
+    <audio id="sfx-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <!-- Creating dummy placeholders, user might need to replace -->
+    <audio id="sfx-wrong" src="https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3"></audio>
+    <audio id="sfx-win" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
